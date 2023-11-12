@@ -1,11 +1,21 @@
+'use client'
 import React from 'react'
 import { RegisterPresenter } from '@/register/RegisterPresenter'
-import { registerApi } from '@/apis/authAPI'
+import { useAuth } from '@/hooks/useAuth'
 
 export const RegisterContainer = () => {
-  const register = async () => {
-    'use server'
-    const res = await registerApi('test01@sample.com', 'password')
-  }
-  return <RegisterPresenter />
+  const [
+    { email, password },
+    { handleChangeEmail, handleChangePassword, handleSubmit },
+  ] = useAuth()
+
+  return (
+    <RegisterPresenter
+      email={email}
+      password={password}
+      handleChangeEmail={handleChangeEmail}
+      handleChangePassword={handleChangePassword}
+      handleSubmit={handleSubmit}
+    />
+  )
 }

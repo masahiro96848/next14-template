@@ -1,4 +1,4 @@
-import { RegisterContainer } from '@/register/RegisterContainer'
+import { RegisterContainer } from '@/signup/RegisterContainer'
 
 const Page = () => {
   return <RegisterContainer />

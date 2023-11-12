@@ -1,5 +1,7 @@
 /**
- * axiosの設定
+ * globalAxios
+ *
+ * @package config
  */
 import axios, { AxiosError } from 'axios'
 

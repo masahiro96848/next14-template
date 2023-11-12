@@ -5,11 +5,11 @@ import globalAxios, { IErrorResponse, isAxiosError } from '@/config/globalAxios'
  * 新規登録API
  * @param email
  * @param password
- * @returns void
+ * @returns
  */
-export const registerApi = async (email: string, password: string) => {
+export const signUpApi = async (email: string, password: string) => {
   try {
-    const data = await globalAxios.post('/signup', {
+    const data: AxiosResponse = await globalAxios.post('/signup', {
       email,
       password,
     })

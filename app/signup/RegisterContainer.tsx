@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
-import { RegisterPresenter } from '@/register/RegisterPresenter'
+import { RegisterPresenter } from '@/signup/RegisterPresenter'
 import { useAuth } from '@/hooks/useAuth'
 
 export const RegisterContainer = () => {
   const [
     { email, password },
-    { handleChangeEmail, handleChangePassword, handleSubmit },
+    { handleChangeEmail, handleChangePassword, handleSignUp },
   ] = useAuth()
 
   return (
@@ -15,7 +15,7 @@ export const RegisterContainer = () => {
       password={password}
       handleChangeEmail={handleChangeEmail}
       handleChangePassword={handleChangePassword}
-      handleSubmit={handleSubmit}
+      handleSubmit={handleSignUp}
     />
   )
 }

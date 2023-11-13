@@ -36,6 +36,7 @@ export interface IErrorResponse {
 const globalAxios = axios.create({
   baseURL: `${BASE_API_URL}`,
   timeout: 1000,
+  withCredentials: true,
   headers: {
     'Content-type': 'application/json',
   },

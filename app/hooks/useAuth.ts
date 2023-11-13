@@ -3,6 +3,7 @@
  *
  * @package hooks
  */
+import { useRouter } from 'next/navigation'
 import { loginApi, signUpApi } from '@/apis/authAPI'
 import { EventType } from '@/config/event'
 import { useCallback, useState } from 'react'
@@ -19,6 +20,7 @@ type ActionType = {
   handleLogin: EventType['onSubmit']
 }
 export const useAuth = () => {
+  const router = useRouter()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
@@ -46,6 +48,7 @@ export const useAuth = () => {
       event.preventDefault()
 
       const res = await signUpApi(email, password)
+      router.push('/')
       if (res?.code === 401) {
         console.log('register error')
         return
@@ -57,18 +60,16 @@ export const useAuth = () => {
   /**
    * ログイン処理
    */
-  const handleLogin: EventType['onSubmit'] = useCallback(
-    async (event) => {
-      event.preventDefault()
+  const handleLogin: EventType['onSubmit'] = async (event) => {
+    event.preventDefault()
 
-      const res = await loginApi(email, password)
-      if (res?.code === 401) {
-        console.log('register error')
-        return
-      }
-    },
-    [email, password],
-  )
+    const res = await loginApi(email, password)
+    router.push('/')
+    if (res?.code === 401) {
+      console.log('register error')
+      return
+    }
+  }
 
   const states: StateType = {
     email,

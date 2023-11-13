@@ -3,7 +3,7 @@
  *
  * @package hooks
  */
-import { signUpApi } from '@/apis/authAPI'
+import { loginApi, signUpApi } from '@/apis/authAPI'
 import { EventType } from '@/config/event'
 import { useCallback, useState } from 'react'
 
@@ -16,6 +16,7 @@ type ActionType = {
   handleChangeEmail: EventType['onChangeInput']
   handleChangePassword: EventType['onChangeInput']
   handleSignUp: EventType['onSubmit']
+  handleLogin: EventType['onSubmit']
 }
 export const useAuth = () => {
   const [email, setEmail] = useState<string>('')
@@ -53,6 +54,22 @@ export const useAuth = () => {
     [email, password],
   )
 
+  /**
+   * ログイン処理
+   */
+  const handleLogin: EventType['onSubmit'] = useCallback(
+    async (event) => {
+      event.preventDefault()
+
+      const res = await loginApi(email, password)
+      if (res?.code === 401) {
+        console.log('register error')
+        return
+      }
+    },
+    [email, password],
+  )
+
   const states: StateType = {
     email,
     password,
@@ -62,6 +79,7 @@ export const useAuth = () => {
     handleChangeEmail,
     handleChangePassword,
     handleSignUp,
+    handleLogin,
   }
 
   return [states, actions] as const

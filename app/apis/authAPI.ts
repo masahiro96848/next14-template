@@ -31,3 +31,28 @@ export const signUpApi = async (email: string, password: string) => {
     return res
   }
 }
+
+export const loginApi = async (email: string, password: string) => {
+  try {
+    const data: AxiosResponse = await globalAxios.post('/login', {
+      email,
+      password,
+    })
+    const res = {
+      code: 200,
+      data,
+    }
+    return res
+  } catch (err) {
+    const res = {
+      code: 500,
+      message: '',
+    }
+    if (isAxiosError(err)) {
+      const axiosError = err as IErrorResponse
+      res.code = axiosError.response.status
+      res.message = axiosError.response.data.message
+    }
+    return res
+  }
+}

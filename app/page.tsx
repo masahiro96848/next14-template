@@ -1,19 +1,11 @@
 'use client'
 import Image from 'next/image'
 import styles from './page.module.css'
-import { Container, Box, Card, Typography, Button } from '@mui/material'
-
-import axios from 'axios'
-import { useState } from 'react'
+import { logOutApi } from './apis/authAPI'
 
 export default function Home() {
-  return (
-    <main>
-      <Container>
-        <Box>
-          <Card></Card>
-        </Box>
-      </Container>
-    </main>
-  )
+  const handleLogOut = async () => {
+    await logOutApi()
+  }
+  return <button onClick={handleLogOut}>ログアウト</button>
 }

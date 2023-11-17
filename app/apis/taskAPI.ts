@@ -37,10 +37,10 @@ export const fetchTaskListApi = async () => {
  */
 export const fetchTaskApi = async (id: number) => {
   try {
-    const { data }: AxiosResponse<TaskType[]> = await globalAxios.get(
+    const { data }: AxiosResponse<TaskType> = await globalAxios.get(
       `/tasks/${id}`,
     )
-    const res: ResponseType<TaskType[]> = {
+    const res: ResponseType<TaskType> = {
       code: 200,
       data,
     }

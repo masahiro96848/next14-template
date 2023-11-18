@@ -1,4 +1,5 @@
 import { TaskType } from '@/types/Task'
+import Link from 'next/link'
 import React from 'react'
 
 type Props = {
@@ -11,7 +12,9 @@ export const TasksPresenter: React.FC<Props> = ({ tasks }) => {
       <h2>Task List</h2>
       <ul>
         {tasks.map((task) => (
-          <li key={task.id}>{task.title}</li>
+          <li key={task.id}>
+            <Link href={`/tasks/${task.id}`}>{task.title}</Link>
+          </li>
         ))}
       </ul>
     </div>

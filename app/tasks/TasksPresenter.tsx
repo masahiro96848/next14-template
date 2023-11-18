@@ -14,6 +14,10 @@ export const TasksPresenter: React.FC<Props> = ({ tasks }) => {
         {tasks.map((task) => (
           <li key={task.id}>
             <Link href={`/tasks/${task.id}`}>{task.title}</Link>
+            <button>
+              <Link href={`tasks/update/${task.id}`}>編集</Link>
+            </button>
+            <button>削除</button>
           </li>
         ))}
       </ul>

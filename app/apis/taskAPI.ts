@@ -60,7 +60,9 @@ export const fetchTaskApi = async (id: number) => {
 }
 
 /**
- * Taskの作成API
+ * Taskの作成処理のAPI
+ * @param title
+ * @returns
  */
 export const createTaskApi = async (title: string) => {
   try {
@@ -72,6 +74,32 @@ export const createTaskApi = async (title: string) => {
       data,
     }
     return res
+  } catch (err) {
+    const res: ResponseType = {
+      code: 500,
+      message: '',
+    }
+    if (isAxiosError(err)) {
+      const axiosError = err as IErrorResponse
+      res.code = axiosError.response.status
+      res.message = axiosError.response.data.message
+    }
+    return res
+  }
+}
+
+export const updateTaskApi = async (id: number, title: string) => {
+  try {
+    const { data }: AxiosResponse<TaskType> = await globalAxios.put(
+      `/tasks/update/${id}`,
+      {
+        title,
+      },
+    )
+    const res: ResponseType<TaskType> = {
+      code: 200,
+      data,
+    }
   } catch (err) {
     const res: ResponseType = {
       code: 500,

@@ -18,7 +18,7 @@ export const TaskCreateContainer = () => {
   )
 
   /**
-   * Todo作成処理
+   * Task作成処理
    */
   const handleTaskCreate: EventType['onSubmit'] = async (event) => {
     event.preventDefault()

@@ -34,6 +34,8 @@ export const fetchTaskListApi = async () => {
 
 /**
  * idに紐づく単一のTask取得API
+ * @param id
+ * @returns
  */
 export const fetchTaskApi = async (id: number) => {
   try {
@@ -88,6 +90,12 @@ export const createTaskApi = async (title: string) => {
   }
 }
 
+/**
+ * Taskの更新処理のAPI
+ * @param id
+ * @param title
+ * @returns
+ */
 export const updateTaskApi = async (id: number, title: string) => {
   try {
     const { data }: AxiosResponse<TaskType> = await globalAxios.put(
@@ -100,6 +108,35 @@ export const updateTaskApi = async (id: number, title: string) => {
       code: 200,
       data,
     }
+  } catch (err) {
+    const res: ResponseType = {
+      code: 500,
+      message: '',
+    }
+    if (isAxiosError(err)) {
+      const axiosError = err as IErrorResponse
+      res.code = axiosError.response.status
+      res.message = axiosError.response.data.message
+    }
+    return res
+  }
+}
+
+/**
+ * Task削除処理のAPI
+ * @param id
+ * @returns
+ */
+export const deleteTaskApi = async (id: number) => {
+  try {
+    const { data }: AxiosResponse<TaskType> = await globalAxios.delete(
+      `tasks/${id}`,
+    )
+    const res: ResponseType<TaskType> = {
+      code: 200,
+      data,
+    }
+    return res
   } catch (err) {
     const res: ResponseType = {
       code: 500,

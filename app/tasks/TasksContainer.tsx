@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { TasksPresenter } from '@/tasks/TasksPresenter'
-import { fetchTaskListApi } from '@/apis/taskAPI'
+import { deleteTaskApi, fetchTaskListApi } from '@/apis/taskAPI'
 import { TaskType } from '@/types/Task'
 
 export const TasksContainer = () => {
@@ -23,10 +23,28 @@ export const TasksContainer = () => {
     fetchData()
   }, [])
 
+  /**
+   * Task削除処理
+   */
+  const handleDeleteTask = async (taskId: number) => {
+    try {
+      const response = await deleteTaskApi(taskId)
+      if (response.code === 200 && response !== undefined) {
+        setTasks((prevTasks: TaskType[] | undefined) =>
+          prevTasks ? prevTasks.filter((task) => task.id !== taskId) : [],
+        )
+      } else {
+        console.error('Error deleting task:', response.message)
+      }
+    } catch (error) {
+      console.error('Error deleting task:', error)
+    }
+  }
+
   if (tasks === undefined) {
     // ローディング状態の処理も追加できます
     return <div>Loading...</div>
   }
 
-  return <TasksPresenter tasks={tasks} />
+  return <TasksPresenter tasks={tasks} handleDeleteTask={handleDeleteTask} />
 }
